@@ -1,0 +1,7 @@
+{
+  "name": "simulador-sas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
