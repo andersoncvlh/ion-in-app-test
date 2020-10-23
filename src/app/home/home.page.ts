@@ -1,5 +1,7 @@
+import { InAppBrowser, InAppBrowserOptions, InAppBrowserObject } from '@ionic-native/in-app-browser/ngx';
 import { Component } from '@angular/core';
 import { DataService, Message } from '../services/data.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,20 @@ import { DataService, Message } from '../services/data.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor(private data: DataService) {}
+
+  iabOptions: InAppBrowserOptions = {
+    zoom: 'no',
+    fullscreen: 'yes',
+    location: 'no'
+  };
+
+
+  constructor(
+    private data: DataService,
+    private iab: InAppBrowser,
+    protected sanitizer: DomSanitizer
+  ) {
+  }
 
   refresh(ev) {
     setTimeout(() => {
@@ -19,4 +34,7 @@ export class HomePage {
     return this.data.getMessages();
   }
 
+  openSite() {
+    const browser: InAppBrowserObject = this.iab.create('https://twitter.com/', '_self', this.iabOptions);
+  }
 }
